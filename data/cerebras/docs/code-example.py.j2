@@ -1,0 +1,15 @@
+import os
+from cerebras.cloud.sdk import Cerebras
+
+client = Cerebras(
+  api_key=os.environ.get("API_KEY"),
+)
+
+completion = client.chat.completions.create(
+  messages=[
+  {"role": "user", "content": "Say this is a test",}
+],
+  model="{{offering.name}}",
+)
+
+print(completion.choices[0].message.content)

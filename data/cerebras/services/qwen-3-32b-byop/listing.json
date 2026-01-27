@@ -1,0 +1,79 @@
+{
+  "currency": "USD",
+  "documents": {
+    "JavaScript code example": {
+      "category": "code_example",
+      "description": "Example code to use the model",
+      "file_path": "../../docs/code-example.js.j2",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "javascript"
+    },
+    "Python code example": {
+      "category": "code_example",
+      "description": "Example code to use the model",
+      "file_path": "../../docs/code-example.py.j2",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "python"
+    },
+    "Python function calling code example": {
+      "category": "code_example",
+      "description": "Example code to use the model",
+      "file_path": "../../docs/code-example-fc.py.j2",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "python"
+    },
+    "cURL code example": {
+      "category": "code_example",
+      "description": "Example code to use the model",
+      "file_path": "../../docs/code-example.sh.j2",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "bash"
+    }
+  },
+  "list_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "0.39999999999999997",
+    "output": "0.7999999999999999",
+    "reference": null,
+    "type": "one_million_tokens"
+  },
+  "schema": "listing_v1",
+  "service_options": {
+    "default_parameters": {
+      "api_key": "${ secrets.CEREBRAS_API_KEY }"
+    }
+  },
+  "status": "ready",
+  "time_created": "2026-01-26T02:42:30.900Z",
+  "user_access_interfaces": {
+    "Provider API": {
+      "access_method": "http",
+      "base_url": "${GATEWAY_BASE_URL}/p/cerebras"
+    }
+  },
+  "user_parameters_schema": {
+    "description": "Access service with your own api-key",
+    "properties": {
+      "api_key": {
+        "default": "",
+        "title": "API Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "api_key"
+    ],
+    "title": "Be Your Own Provider",
+    "type": "object"
+  },
+  "user_parameters_ui_schema": {
+    "api_key": {
+      "ui:description": "API Key (CEREBRAS_API_KEY) is managed via secrets",
+      "ui:disabled": true
+    }
+  }
+}
