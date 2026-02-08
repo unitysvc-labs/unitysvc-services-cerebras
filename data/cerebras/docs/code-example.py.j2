@@ -2,7 +2,7 @@ import os
 from cerebras.cloud.sdk import Cerebras
 
 client = Cerebras(
-  api_key=os.environ.get("API_KEY"),
+  api_key=os.environ.get("UNITYSVC_API_KEY"),
 )
 
 completion = client.chat.completions.create(
