@@ -50,7 +50,7 @@
   },
   "schema": "listing_v1",
   "service_options": {
-    "default_parameters": {
+    "ops_testing_parameters": {
       "api_key": "${ secrets.CEREBRAS_API_KEY }"
     }
   },
