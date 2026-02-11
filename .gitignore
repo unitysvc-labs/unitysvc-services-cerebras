@@ -40,7 +40,7 @@ Thumbs.db
 
 # Test outputs
 *.env
-failed_*.env
+failed_*
 *.log
 *.out
 *.err
