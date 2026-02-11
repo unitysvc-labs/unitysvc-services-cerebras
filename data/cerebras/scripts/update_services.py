@@ -20,7 +20,7 @@ from unitysvc_services import ModelDataFetcher, ModelDataLookup, populate_from_i
 # Provider Configuration
 PROVIDER_NAME = "cerebras"
 PROVIDER_DISPLAY_NAME = "Cerebras"
-API_BASE_URL = "https://api.cerebras.ai/v1/chat/completions"
+API_BASE_URL = "https://api.cerebras.ai/v1"
 ENV_API_KEY_NAME = "CEREBRAS_API_KEY"
 
 SCRIPT_DIR = Path(__file__).parent

@@ -17,7 +17,7 @@
   "upstream_access_interfaces": {
     "Cerebras API": {
       "access_method": "http",
-      "base_url": "https://api.cerebras.ai/v1/chat/completions",
+      "base_url": "https://api.cerebras.ai/v1",
       "rate_limits": []
     }
   }
