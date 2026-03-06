@@ -1,0 +1,39 @@
+{
+  "currency": "USD",
+  "description": "Gpt Oss 120B language model",
+  "details": {
+    "contextLength": 131072,
+    "litellm_provider": "azure_ai",
+    "max_input_tokens": 131072,
+    "max_output_tokens": 131072,
+    "max_tokens": 131072,
+    "mode": "chat",
+    "object": "model",
+    "owned_by": "cerebras"
+  },
+  "display_name": "Gpt Oss 120B",
+  "name": "gpt-oss-120b",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "0.15",
+    "output": "0.6",
+    "reference": null,
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
+  "service_type": "llm",
+  "status": "ready",
+  "tags": [
+    "ai",
+    "gateway",
+    "byok"
+  ],
+  "time_created": "2026-01-26T02:42:30.898Z",
+  "upstream_access_interfaces": {
+    "Cerebras API": {
+      "access_method": "http",
+      "base_url": "https://api.cerebras.ai/v1",
+      "rate_limits": []
+    }
+  }
+}

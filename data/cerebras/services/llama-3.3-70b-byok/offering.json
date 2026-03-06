@@ -1,0 +1,35 @@
+{
+  "currency": "USD",
+  "description": "Llama 3.3 70B language model",
+  "details": {
+    "contextLength": 128000,
+    "litellm_provider": "cerebras",
+    "max_input_tokens": 128000,
+    "max_output_tokens": 128000,
+    "max_tokens": 128000,
+    "mode": "chat",
+    "object": "model",
+    "owned_by": "cerebras"
+  },
+  "display_name": "Llama 3.3 70B",
+  "name": "llama-3.3-70b",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "0.85",
+    "output": "1.2",
+    "reference": null,
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
+  "service_type": "llm",
+  "status": "deprecated",
+  "tags": ["byok"],
+  "time_created": "2026-01-26T02:42:30.899Z",
+  "upstream_access_interfaces": {
+    "Cerebras API": {
+      "access_method": "http",
+      "base_url": "https://api.cerebras.ai/v1",
+      "rate_limits": []
+    }
+  }
+}

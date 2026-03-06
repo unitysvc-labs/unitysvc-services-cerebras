@@ -1,0 +1,39 @@
+const UNITYSVC_API_KEY = process.env.UNITYSVC_API_KEY;
+const ENDPOINT = process.env.SERVICE_BASE_URL;
+const MODEL = "{{offering.name}}";  // pick one you have access to
+
+async function main() {
+  try {
+    const response = await fetch(`${ENDPOINT}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${UNITYSVC_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: "user", content: "Say this is a test" }
+        ]
+      })
+    });
+
+    const raw = await response.text();
+    console.log("Raw response:", raw);
+
+    const data = JSON.parse(raw);
+    console.log("Parsed:", data);
+
+    // now check for correct path to message
+    const msg = 
+      data.choices?.[0]?.message?.content
+      ?? data.choices?.[0]?.text
+      ?? "⚠ No content returned";
+    console.log("AI says:", msg);
+
+  } catch (err) {
+    console.error("API request failed:", err);
+  }
+}
+
+main();

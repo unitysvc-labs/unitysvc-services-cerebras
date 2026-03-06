@@ -1,0 +1,26 @@
+import os
+from cerebras.cloud.sdk import Cerebras
+
+client = Cerebras(api_key=os.environ.get("UNITYSVC_API_KEY"))
+
+def echo_message(message: str):
+    return f"Echo: {message}"
+
+user_input = "Say this is a test"
+
+completion = client.chat.completions.create(
+    model="{{offering.name}}",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": user_input}
+    ],
+)
+
+model_output = completion.choices[0].message.content
+
+# simple manual function handling
+if "echo" in user_input.lower() or "say" in user_input.lower():
+    result = echo_message(user_input)
+    print(result)
+else:
+    print(model_output)
