@@ -23,7 +23,9 @@
   "schema": "offering_v1",
   "service_type": "llm",
   "status": "deprecated",
-  "tags": ["byok"],
+  "tags": [
+    "byok"
+  ],
   "time_created": "2026-01-26T02:42:30.900Z",
   "upstream_access_interfaces": {
     "Cerebras API": {
