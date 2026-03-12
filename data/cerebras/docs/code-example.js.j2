@@ -1,6 +1,6 @@
 const UNITYSVC_API_KEY = process.env.UNITYSVC_API_KEY;
 const ENDPOINT = process.env.SERVICE_BASE_URL;
-const MODEL = "{{offering.name}}";  // pick one you have access to
+const MODEL = process.env.MODEL || "{{offering.name}}";  // pick one you have access to
 
 async function main() {
   try {

@@ -2,7 +2,7 @@ curl "$SERVICE_BASE_URL" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $UNITYSVC_API_KEY" \
   -d '{
-    "model": "{{offering.name}}",
+    "model": "${MODEL:-{{offering.name}}}",
     "messages": [
       {
         "role": "system",

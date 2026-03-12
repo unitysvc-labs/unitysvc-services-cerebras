@@ -9,7 +9,7 @@ completion = client.chat.completions.create(
   messages=[
   {"role": "user", "content": "Say this is a test",}
 ],
-  model="{{offering.name}}",
+  model=os.environ.get("MODEL", "{{offering.name}}"),
 )
 
 print(completion.choices[0].message.content)
