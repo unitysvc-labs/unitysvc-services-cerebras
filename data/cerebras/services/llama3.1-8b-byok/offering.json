@@ -12,7 +12,7 @@
     "max_tokens": 128000,
     "mode": "chat",
     "object": "model",
-    "owned_by": "cerebras"
+    "owned_by": "Cerebras"
   },
   "display_name": "Llama3.1 8B",
   "name": "llama3.1-8b",
