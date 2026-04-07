@@ -16,8 +16,13 @@ data = {
 }
 
 response = requests.post(url, headers=headers, json=data)
+response_json = response.json()
 
-print(response.json())
+print("Status code:", response.status_code)
+print("Full response:", response_json)
 
-# If you want just the text output:
-print(response.json()["choices"][0]["message"]["content"])
+# Safely extract the content
+if "choices" in response_json:
+    print(response_json["choices"][0]["message"]["content"])
+else:
+    print("Error from API:", response_json.get("error") or response_json)
