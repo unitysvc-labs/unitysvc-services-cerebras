@@ -32,7 +32,7 @@
   ],
   "time_created": "2026-03-17T17:13:10.920586Z",
   "upstream_access_config": {
-    "Cerebras API": {
+    "cerebras_api": {
       "access_method": "http",
       "api_key": "${ customer_secrets.CEREBRAS_API_KEY }",
       "base_url": "https://api.cerebras.ai/v1",
