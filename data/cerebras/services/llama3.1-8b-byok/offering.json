@@ -5,6 +5,7 @@
   "currency": "USD",
   "description": "Llama3.1 8B language model",
   "details": {
+    "context_length": 128000,
     "litellm_provider": "cerebras",
     "max_input_tokens": 128000,
     "max_output_tokens": 128000,
@@ -12,7 +13,6 @@
     "mode": "chat",
     "object": "model",
     "owned_by": "Cerebras",
-    "context_length": 128000,
     "parameter_count": null
   },
   "display_name": "Llama3.1 8B",
