@@ -13,9 +13,6 @@
     "JavaScript code example": {
       "$doc_preset": "llm_code_example_javascript"
     },
-    "Python Cerebras SDK code example": {
-      "$doc_preset": "llm_code_example_cerebras"
-    },
     "Python code example": {
       "$doc_preset": "llm_code_example_openai"
     },
