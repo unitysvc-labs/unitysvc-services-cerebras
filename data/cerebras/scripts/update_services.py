@@ -153,7 +153,7 @@ class ModelSource:
             # Provider config (for templates)
             "provider_name": PROVIDER_NAME,
             "provider_display_name": PROVIDER_DISPLAY_NAME,
-            "api_base_url": API_BASE_URL,
+            "api_base_url": API_BASE_URL[:-3],
             "env_api_key_name": ENV_API_KEY_NAME,
         }
 
