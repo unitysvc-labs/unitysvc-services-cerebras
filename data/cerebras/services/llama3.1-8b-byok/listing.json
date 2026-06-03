@@ -32,13 +32,14 @@
     "output": "0",
     "type": "one_million_tokens"
   },
+  "name": "cerebras/llama3.1-8b",
   "schema": "listing_v1",
   "status": "ready",
   "time_created": "2026-03-17T17:13:10.921201Z",
   "user_access_interfaces": {
     "provider_api": {
       "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/cerebras",
+      "base_url": "${API_GATEWAY_BASE_URL}/{{ service_name }}",
       "routing_key": {
         "model": "llama3.1-8b"
       }
