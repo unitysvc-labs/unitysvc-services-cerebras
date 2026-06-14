@@ -26,16 +26,21 @@
       "$doc_preset": "llm_code_example_shell"
     }
   },
-  "name": "cerebras/qwen-3-235b-a22b-instruct-2507",
-  "schema": "listing_v1",
+  "list_price": {
+    "description": "Service provider charges $0.1 / $0.1 per 1M input/output tokens",
+    "input": "0",
+    "output": "0",
+    "type": "one_million_tokens"
+  },
+  "name": "cerebras/llama3.1-8b",
   "status": "ready",
-  "time_created": "2026-01-26T02:42:30.897Z",
+  "time_created": "2026-03-17T17:13:10.921201Z",
   "user_access_interfaces": {
     "provider_api": {
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/cerebras",
       "routing_key": {
-        "model": "qwen-3-235b-a22b-instruct-2507"
+        "model": "llama3.1-8b"
       }
     }
   }
