@@ -26,7 +26,6 @@
     "output": "0",
     "type": "one_million_tokens"
   },
-  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
   "tags": [
