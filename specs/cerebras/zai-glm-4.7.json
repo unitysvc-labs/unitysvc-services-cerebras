@@ -1,0 +1,38 @@
+{
+  "parameters": {
+    "api_base_url": "https://api.cerebras.ai",
+    "description": "Zai Glm 4.7 language model",
+    "details": {
+      "context_length": 128000,
+      "litellm_provider": "cerebras",
+      "max_input_tokens": 128000,
+      "max_output_tokens": 128000,
+      "max_tokens": 128000,
+      "metadata_sources": {
+        "context_length": "litellm"
+      },
+      "mode": "chat",
+      "object": "model",
+      "owned_by": "Cerebras",
+      "parameter_count": null
+    },
+    "display_name": "Zai Glm 4.7",
+    "env_api_key_name": "CEREBRAS_API_KEY",
+    "list_price": {
+      "description": "Service provider charges $2.25 / $2.75 per 1M input/output tokens",
+      "input": "0",
+      "output": "0",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "zai-glm-4.7",
+    "payout_price": {
+      "description": "Service provider charges $2.25 / $2.75 per 1M input/output tokens",
+      "input": "0",
+      "output": "0",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "Cerebras",
+    "service_type": "llm",
+    "status": "ready"
+  }
+}
