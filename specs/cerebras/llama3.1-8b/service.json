@@ -1,3 +1,7 @@
 {
-  "service_id": "2a4fc243-c5e7-48bc-9556-9b77a67ffe9f"
+  "display_name": "Llama3.1 8B",
+  "name": "cerebras/llama3.1-8b",
+  "service_id": "2a4fc243-c5e7-48bc-9556-9b77a67ffe9f",
+  "status": "updated",
+  "time_created": "2026-06-06T15:35:43.115848Z"
 }
