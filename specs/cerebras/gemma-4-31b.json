@@ -1,0 +1,38 @@
+{
+  "parameters": {
+    "api_base_url": "https://api.cerebras.ai",
+    "description": "Gemma 4 31B language model",
+    "details": {
+      "context_length": 262144,
+      "litellm_provider": "bedrock_mantle",
+      "max_input_tokens": 256000,
+      "max_output_tokens": 256000,
+      "max_tokens": 256000,
+      "metadata_sources": {
+        "context_length": "openrouter"
+      },
+      "mode": "chat",
+      "object": "model",
+      "owned_by": "Cerebras",
+      "parameter_count": null
+    },
+    "display_name": "Gemma 4 31B",
+    "env_api_key_name": "CEREBRAS_API_KEY",
+    "list_price": {
+      "description": "Service provider charges $0.14 / $0.4 per 1M input/output tokens",
+      "input": "0",
+      "output": "0",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "gemma-4-31b",
+    "payout_price": {
+      "description": "Service provider charges $0.14 / $0.4 per 1M input/output tokens",
+      "input": "0",
+      "output": "0",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "Cerebras",
+    "service_type": "llm",
+    "status": "ready"
+  }
+}
