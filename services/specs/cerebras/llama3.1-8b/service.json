@@ -2,6 +2,6 @@
   "display_name": "Llama3.1 8B",
   "name": "cerebras/llama3.1-8b",
   "service_id": "2a4fc243-c5e7-48bc-9556-9b77a67ffe9f",
-  "status": "created",
+  "status": "updated",
   "time_created": "2026-08-10T16:42:33.848247Z"
 }
