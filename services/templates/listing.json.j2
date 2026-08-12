@@ -19,22 +19,33 @@
       "$doc_preset": "llm_description"
     },
     "Python code example": {
-      "$doc_preset": "llm_code_example_openai"
+      "$doc_preset": {"name": "llm_code_example_openai", "meta": {"sleep_after_test": 5}}
     },
     "Python Cerebras SDK code example": {
-      "$doc_preset": "llm_code_example_cerebras"
+      "$doc_preset": {"name": "llm_code_example_cerebras", "meta": {"sleep_after_test": 5}}
     },
     "Python function calling code example": {
-      "$doc_preset": "llm_code_example_fc_requests"
+      "$doc_preset": {"name": "llm_code_example_fc_requests", "meta": {"sleep_after_test": 5}}
     },
     "JavaScript code example": {
-      "$doc_preset": "llm_code_example_javascript"
+      "$doc_preset": {"name": "llm_code_example_javascript", "meta": {"sleep_after_test": 5}}
     },
     "cURL code example": {
-      "$doc_preset": "llm_code_example_shell"
+      "$doc_preset": {"name": "llm_code_example_shell", "meta": {"sleep_after_test": 5}}
+    },
+    {#- Anthropic-dialect examples (R9): the upstream speaks OpenAI, so
+        specs run-tests (local_testing) calls it in OpenAI form, while the
+        gateway path speaks Anthropic and exercises the llm_translator. #}
+    {#- Anthropic-dialect examples ship as unitysvc-data presets — do not
+        vendor local copies, which drift from the upstream versions. #}
+    "Python code example (Anthropic-style input)": {
+      "$doc_preset": {"name": "llm_code_example_anthropic_to_openai_sdk", "meta": {"sleep_after_test": 5}}
+    },
+    "cURL code example (Anthropic-style input)": {
+      "$doc_preset": {"name": "llm_code_example_anthropic_to_openai_shell", "meta": {"sleep_after_test": 5}}
     },
     "Connectivity test": {
-      "$doc_preset": "llm_connectivity"
+      "$doc_preset": {"name": "llm_connectivity", "meta": {"sleep_after_test": 5}}
     },
     "Default request body": {
       "$doc_preset": "llm_request_template"
