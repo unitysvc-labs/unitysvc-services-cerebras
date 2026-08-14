@@ -19,10 +19,9 @@
     "display_name": "Zai Glm 4.7",
     "env_api_key_name": "CEREBRAS_API_KEY",
     "list_price": {
-      "description": "Service provider charges $2.25 / $2.75 per 1M input/output tokens",
-      "input": "0",
-      "output": "0",
-      "type": "one_million_tokens"
+      "description": "Free (BYOK)",
+      "price": "0",
+      "type": "constant"
     },
     "offering_name": "zai-glm-4.7",
     "payout_price": {
@@ -31,6 +30,7 @@
       "output": "0",
       "type": "one_million_tokens"
     },
+    "pricing_note": "$2.25 / $2.75 per 1M input/output tokens",
     "provider_display_name": "Cerebras",
     "service_type": "llm",
     "status": "ready"
