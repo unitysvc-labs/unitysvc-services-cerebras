@@ -39,7 +39,34 @@
   "capabilities": ["chat"],
   "status": "{{ status | default('ready') }}",
   "currency": "USD",
-  "tags": ["ai", "gateway", "byok"],
+{#- Tags come from the platform's CLOSED vocabulary (unitysvc docs/tags.yml).
+    The legacy trio — "ai", "gateway", "byok" — is gone: each one restated a
+    field the platform already derives (`service_type`, `gateway_type`, and the
+    enrollment channel named in `upstream_access_config` below), and ingest now
+    REJECTS any tag outside the vocabulary, so an upload carrying them fails
+    outright. `feature:func-call` is the only tag a seller may declare.
+
+    Emitted unconditionally for every chat model in this catalog. There is no
+    per-model signal to key on — Cerebras' `GET /v1/models` returns only
+    `id` / `object` / `created` / `owned_by`, per their own API reference — but
+    every model in specs/cerebras/ is documented as tool-calling:
+
+      gemma-4-31b   — Cerebras model page, Capabilities: "... Structured
+                      Outputs, Tool Calling, Parallel Tool Calling ..."
+      gpt-oss-120b  — Cerebras model page, Capabilities: "... Structured
+                      Outputs, Tool Calling, Prompt Caching"
+      zai-glm-4.7   — served on a Cerebras dedicated endpoint (zai-org/GLM-4.7);
+                      the model card states "Both support tool calling. Please
+                      use OpenAI-style tool description format for calls."
+
+    The `llm` guard is the one thing standing between that claim and a wrong
+    one: `_determine_service_type` in the populator can also emit `embedding`
+    and `rerank`, and neither can serve a tools-bearing request. This is a
+    catalog-wide assertion over a THREE-model catalog that the daily populate
+    run can grow — if Cerebras adds a chat model without tool calling, this is
+    what breaks. Re-check the model pages when the catalog changes, and swap in
+    a per-model parameter rather than widening the guard. -#}
+  "tags": {{ (["feature:func-call"] if service_type == "llm" else []) | tojson }},
 {#- Merge the dual-dialect formats into the provider's details (R8); the
     llm_translator below exposes the OpenAI upstream in both dialects. #}
 {%- set _details = details.copy() %}
