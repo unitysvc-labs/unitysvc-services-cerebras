@@ -7,6 +7,7 @@ Yields model dictionaries that are rendered using Jinja2 templates.
 Usage: python scripts/update_services.py
 """
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -26,6 +27,20 @@ ENV_API_KEY_NAME = "CEREBRAS_API_KEY"
 SCRIPT_DIR = Path(__file__).parent
 
 
+def _committed_param(service_name: str, key: str):
+    """What ``key`` currently holds in the committed param file, or ``None``.
+
+    Read the param file DIRECTLY rather than through ``load_param_data``: that
+    merges the ``.override.json`` companion, and an override's value is not
+    something this script derived, so it must not make a lookup look successful.
+    """
+    path = SCRIPT_DIR.parent / "specs" / f"{service_name}.json"
+    try:
+        return ((json.loads(path.read_text()) or {}).get("parameters") or {}).get(key)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
 class ModelSource:
     """Fetches models and yields template dictionaries."""
 
@@ -36,8 +51,14 @@ class ModelSource:
 
     def iter_models(self) -> Iterator[dict]:
         """Yield model dictionaries for template rendering."""
-        # Fetch LiteLLM data once
+        # Fetch LiteLLM data once. An EMPTY table fails every per-model rate
+        # lookup at once — unambiguously a broken run, not a catalog that
+        # stopped publishing rates — so refuse up front rather than letting the
+        # per-model guard below report it one model at a time.
         self.litellm_data = self.data_fetcher.fetch_litellm_model_data()
+        if not self.litellm_data:
+            print("Error: litellm rate table came back empty — cannot derive prices")
+            sys.exit(1)
 
         print(f"Fetching models from {PROVIDER_DISPLAY_NAME} API...")
         try:
@@ -50,8 +71,19 @@ class ModelSource:
             models = r.json().get("data", [])
             print(f"Found {len(models)} models\n")
         except Exception as e:
+            # Hard failure, not an empty iterator. Absence now RETIRES services
+            # (``deprecate_missing``), so returning here would yield nothing and
+            # ask the writer to deprecate the entire catalog on a transport
+            # error. Exiting non-zero fails the workflow step and skips the
+            # PR-creation step, which is the honest outcome for a failed fetch.
             print(f"Error listing models: {e}")
-            return
+            sys.exit(1)
+
+        if not models:
+            # An empty enumeration means the upstream call did not really
+            # succeed; it is never "Cerebras retired every model".
+            print(f"Error: {PROVIDER_DISPLAY_NAME} returned no models")
+            sys.exit(1)
 
         for i, model_info in enumerate(models, 1):
             model_id = model_info.get("id", "")
@@ -109,8 +141,36 @@ class ModelSource:
         # "<amount> ~ <PILL> | <note>" grammar; do not build it here, since this
         # dict feeds payout_price too.
         pricing = {"type": "constant", "price": "0", "description": "Free (BYOK)"}
-        pricing_note = None
-        if model_data and "input_cost_per_token" in model_data and "output_cost_per_token" in model_data:
+        # `list_price` here is the constant "Free (BYOK)" — the customer's own
+        # key pays the provider — so the field actually DERIVED from
+        # `input_cost_per_token` is `pricing_note`, the rate card shown on the
+        # listing. Nothing downstream requires it, and under unitysvc-sellers
+        # 0.3.1 a yielded null no longer overwrites the committed value. So a
+        # lookup that fails for a model that ALREADY HAS a committed rate would
+        # silently republish yesterday's number as if it had been re-derived
+        # today: refuse the run instead, at the point of the failure.
+        #
+        # Scoped deliberately. A model litellm simply does not carry has no
+        # committed rate to re-ship, and that null is permanent and correct —
+        # failing on it would break every run of this script forever.
+        service_name = f"{PROVIDER_NAME}/{model_id}"
+        has_rate = bool(
+            model_data
+            and "input_cost_per_token" in model_data
+            and "output_cost_per_token" in model_data
+        )
+        if not has_rate:
+            committed_note = _committed_param(service_name, "pricing_note")
+            if committed_note is not None:
+                print(
+                    f"Error: no litellm input/output rate for {model_id}, but "
+                    f"{service_name}.json already carries one ({committed_note!r}). "
+                    "A failed lookup must not silently re-ship the committed rate."
+                )
+                sys.exit(1)
+            print("  no litellm rate (and none committed) — listing carries no rate card")
+            pricing_note = None
+        else:
             input_price = round(float(model_data["input_cost_per_token"]) * 1_000_000, 4)
             output_price = round(float(model_data["output_cost_per_token"]) * 1_000_000, 4)
             if "cache_read_input_token_cost" in model_data:
@@ -129,9 +189,11 @@ class ModelSource:
                 )
 
         return {
-            # Folder path under specs/ == listing.name == "<provider>/<model_id>"
-            # (flat layout, #1263). populate_from_iterator preserves the slash.
-            "name": f"{PROVIDER_NAME}/{model_id}",
+            # The service's name, which is also its path under specs/ ==
+            # listing.name == "<provider>/<model_id>" (flat layout, #1263).
+            # Required by unitysvc-sellers 0.3.1; it is what deprecation matches
+            # committed services by, so it must be stated, never inferred.
+            "service_name": service_name,
             # Offering name is the bare upstream model_id
             "offering_name": model_id,
             # Offering fields
@@ -176,10 +238,18 @@ def main():
         sys.exit(1)
 
     source = ModelSource(api_key)
-    write_params_from_iterator(
+    # ``deprecate_missing`` defaults to True and is left on: this script
+    # enumerates the whole upstream catalog on every run and has no --limit and
+    # no per-model skips, so anything committed that the run does not yield
+    # really has stopped being served. Every partial-run path above
+    # (fetch error, empty enumeration, missing rate) exits non-zero instead of
+    # reaching this call with a short list.
+    stats = write_params_from_iterator(
         iterator=source.iter_models(),
         output_dir=SCRIPT_DIR.parent / "specs",
     )
+    print(f"\nDone: {stats}")
+    print(f"New: {stats['new']}, deprecated: {stats['deprecated']}")
 
 
 if __name__ == "__main__":
