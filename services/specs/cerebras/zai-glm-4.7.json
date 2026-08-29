@@ -33,6 +33,6 @@
     "pricing_note": "$2.25 / $2.75 per 1M input/output tokens",
     "provider_display_name": "Cerebras",
     "service_type": "llm",
-    "status": "ready"
+    "status": "deprecated"
   }
 }
