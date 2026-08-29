@@ -1,9 +1,13 @@
 {
   "status": "{{ status | default('ready') }}",
   "currency": "USD",
-  {#- name = <provider>/<bare> per the platform service-naming convention
-      (unitysvc PR #1196 / issue #1138). #}
-  "name": "{{ provider_name }}/{{ offering_name }}",
+  {#- The service's own name, injected from its path under specs/ — the one
+      place it is defined (unitysvc-sellers 0.3.1). Do NOT rebuild it from
+      provider_name + offering_name: two sources for one identity drift, and
+      deprecation now matches committed services BY this name. Shape stays
+      <provider>/<bare> per the platform naming convention (unitysvc #1196 /
+      #1138). #}
+  "name": "{{ service_name }}",
 {%- if list_price %}
 {#- Price-cell copy follows the marketplace description grammar
     (unitysvc/unitysvc#1886, PR #1887):
