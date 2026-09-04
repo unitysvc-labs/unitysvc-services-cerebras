@@ -1,0 +1,29 @@
+{
+  "parameters": {
+    "api_base_url": "https://api.cerebras.ai",
+    "description": "Qwen 3.8 27B language model",
+    "details": {
+      "context_length": null,
+      "object": "model",
+      "owned_by": "Cerebras",
+      "parameter_count": null
+    },
+    "display_name": "Qwen 3.8 27B",
+    "env_api_key_name": "CEREBRAS_API_KEY",
+    "list_price": {
+      "description": "Free (BYOK)",
+      "price": "0",
+      "type": "constant"
+    },
+    "offering_name": "qwen-3.8-27b",
+    "payout_price": {
+      "description": "Free (BYOK)",
+      "price": "0",
+      "type": "constant"
+    },
+    "pricing_note": null,
+    "provider_display_name": "Cerebras",
+    "service_type": "llm",
+    "status": "ready"
+  }
+}
