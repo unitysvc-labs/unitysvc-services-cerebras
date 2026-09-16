@@ -3,7 +3,15 @@
     "api_base_url": "https://api.cerebras.ai",
     "description": "Qwen 3.8 27B language model",
     "details": {
-      "context_length": null,
+      "context_length": 65536,
+      "litellm_provider": "cerebras",
+      "max_input_tokens": 65536,
+      "max_output_tokens": 32768,
+      "max_tokens": 32768,
+      "metadata_sources": {
+        "context_length": "litellm"
+      },
+      "mode": "chat",
       "object": "model",
       "owned_by": "Cerebras",
       "parameter_count": null
@@ -21,7 +29,7 @@
       "price": "0",
       "type": "constant"
     },
-    "pricing_note": null,
+    "pricing_note": "$0.99 / $1.49 per 1M input/output tokens",
     "provider_display_name": "Cerebras",
     "service_type": "llm",
     "status": "ready"
