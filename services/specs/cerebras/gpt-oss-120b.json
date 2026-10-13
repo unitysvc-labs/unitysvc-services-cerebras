@@ -9,7 +9,7 @@
       "max_output_tokens": 131072,
       "max_tokens": 131072,
       "metadata_sources": {
-        "context_length": "litellm"
+        "context_length": "openrouter"
       },
       "mode": "chat",
       "object": "model",
